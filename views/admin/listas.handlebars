@@ -1,0 +1,35 @@
+<h2>Todas as Listas</h2>
+<hr>
+
+
+
+
+
+{{#each listas}}
+<div class="panel panel-default mb-4">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{nome}}</h3>
+    </div>
+    <div class="panel-body ml-4">
+        <a href="/admin/listas/edit/{{_id}}" class="btn btn-primary">Editar</a>
+        <form action="/admin/lista/delete" method="post">
+            <input type="hidden" name="id" value="{{_id}}">
+            <button type="submit" class="btn btn-danger">Deletar</button>
+        </form>
+    </div>
+</div>
+{{else}}
+
+<h4>Nenhuma Lista Registrada</h4>
+
+{{/each}}
+
+
+
+
+
+
+
+
+
+<a href="/admin/listas/add"><button class="btn btn-success">Nova Lista</button></a>

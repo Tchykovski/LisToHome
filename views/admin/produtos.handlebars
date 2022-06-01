@@ -1,0 +1,36 @@
+<h2>Lista de produtos</h2>
+
+
+<a href="/admin/produtos/add"><button class="btn btn-success">Novo Produto</button></a>
+<br>
+<br>
+
+<table class="table table-produtos">
+    <thead>
+        <tr>
+            <th scope="col">Produto</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Lista</th>
+            <th scope="col">Editar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each produtos}}
+        <tr class="center">
+            <td>{{nome}}</td>
+            <td>R${{preco}}</td>
+            <td>{{quantidade}}</td>
+            <td>{{lista.nome}}</td>
+            <td>
+                <a href="/admin/produtos/edit/{{_id}}" id="btn-edit" class="btn btn-success">Editar</a>
+                <a href="/admin/produtos/delete/{{_id}}" id="btn-delete" class="btn btn-danger">Excluir</a>
+
+            </td>
+        </tr>
+        <br>
+        {{else}}
+        <p>Nenhum produto registrado.</p>
+        {{/each}}
+    </tbody>
+</table>

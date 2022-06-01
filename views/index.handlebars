@@ -1,0 +1,29 @@
+<div class="jumbotron">
+    <div class="h-100 p-5 text-white bg-dark rounded-3">
+        <h2>Bem-vindo ao LisToHome!</h2>
+        <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look.
+            Then,
+            mix and match with additional component themes and more.</p>
+
+        <button class="btn btn-outline-light" type="button">Crie sua conta</button>
+    </div>
+    <br>
+    <hr>
+
+    <h2>Listas Recentes:</h2>
+    <br><br>
+    {{#each listas}}
+    <h3>{{nome}}</h3>
+
+    <small>{{date}}</small><br>
+
+    <a href="/lista/{{_id}}" class="btn btn-primary">Veja a Lista completa</a>
+
+    <br>
+    <br>
+    <br>
+
+    {{else}}
+    <h5>Nenhuma Lista criada</h5>
+
+    {{/each}}

@@ -1,0 +1,23 @@
+<h2>Lista: {{lista.nome}}</h2>
+
+<table class="table table-produtos">
+    <thead>
+        <tr>
+            <th scope="col">Produto</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Quantidade</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each produtos}}
+        <tr class="center">
+            <td>{{nome}}</td>
+            <td>R${{preco}}</td>
+            <td>{{quantidade}}</td>
+        </tr>
+        <br>
+        {{else}}
+        <p>Nenhum produto registrado.</p>
+        {{/each}}
+    </tbody>
+</table>

@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+
+body {
+    background-color: rgb(34, 34, 34);
+    color: white !important;
+    font-family: Poppins;
+    max-width: 1186px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#title {
+    flex-direction: row;
+    line-height: 5px;
+    font-family: Poppins;
+    padding: 2px;
+}
+
+#title a{
+   color: white;
+   text-decoration: none;
+
+}
+
+
+
+header ul li {
+    display: inline-block;
+    margin: 20px;
+}
+
+header ul li a {
+    color: white;
+}
+
+header ul li a:hover {
+    color: #fd7f0c;
+    transition: all .5s
+}
+
+#login-btn {
+    border: 2px solid #fd7f0c;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+#login-btn:hover {
+    background-color: #fd7f0c;
+    color: white;
+    transition: all .5s
+}
+
+.table-produtos{
+    color:white;
+    text-align: center;
+    padding: 50px;
+}
+
+td{
+  line-height: 38px;
+}
+
+#btn-edit{
+   height: 38px;
+   margin-right: 5px;
+}
+
+#btn-delete{
+    height: 38px;
+    margin-left: 5px;
+}
+
+.jumbotron{
+
+    width: 70%;
+    margin: 0   auto;
+}
+
+
+
+
+ 
+ 
