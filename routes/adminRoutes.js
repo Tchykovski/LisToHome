@@ -16,7 +16,7 @@ router.get('/', isAdmin, (req, res) => {
 
 
 //mostra todas as listas 
-router.get('/listas',  (req, res) => {
+router.get('/listas', isAdmin,  (req, res) => {
     Lista.find().lean().then((listas) => {
         res.render('admin/listas', { listas: listas });
     }).catch((err) => {
@@ -28,7 +28,7 @@ router.get('/listas',  (req, res) => {
 
 
 //mostra formulário de edição
-router.get('/listas/edit/:id', (req, res) => {
+router.get('/listas/edit/:id', isAdmin, (req, res) => {
 Lista.findOne({ _id: req.params.id }).lean().then((lista) => {
     res.render('admin/editLista', { lista: lista });
 }).catch((err) => {
@@ -38,7 +38,7 @@ Lista.findOne({ _id: req.params.id }).lean().then((lista) => {
 });
 
 
-router.post('/listas/edit', (req, res) => {
+router.post('/listas/edit',  (req, res) => {
     Lista.findOne({ _id: req.body.id }).then((lista) => {
         lista.nome = req.body.nome;
 
@@ -59,7 +59,7 @@ router.post('/listas/edit', (req, res) => {
 
 
 //formulario add lista
-router.get('/listas/add', (req, res) => {
+router.get('/listas/add', isAdmin, (req, res) => {
     res.render('admin/addlistas');
 });
 
@@ -112,7 +112,7 @@ router.post('/lista/delete', (req, res) => {
 
 
 
-router.get('/produtos', (req, res) => {
+router.get('/produtos', isAdmin, (req, res) => {
     Produto.find().lean().populate('lista').sort({ date: 'desc' }).then((produtos) => {
         res.render('admin/produtos', { produtos: produtos });
     }).catch((err) => {
@@ -123,7 +123,7 @@ router.get('/produtos', (req, res) => {
 });
 
 
-router.get('/produtos/add', (req, res) => {
+router.get('/produtos/add', isAdmin, (req, res) => {
     Lista.find().lean().then((listas) => {
         res.render('admin/addprodutos', { listas: listas });
     }).catch((err) => {
@@ -162,7 +162,7 @@ if (erros.length>0){
 
  })
 
-    router.get('/produtos/edit/:id', (req, res) => {
+    router.get('/produtos/edit/:id', isAdmin, (req, res) => {
         Produto.findOne({ _id: req.params.id }).lean().then((produto) => {
             Lista.find().lean().then((listas) => {
                 res.render('admin/editprodutos', { produto: produto, listas: listas });
@@ -198,7 +198,7 @@ if (erros.length>0){
 
 
 
-    router.get('/produtos/delete/:id', (req, res) => {
+    router.get('/produtos/delete/:id', isAdmin, (req, res) => {
         Produto.deleteOne({ _id: req.params.id }).then(() => {
             req.flash('success_msg', 'Produto deletado com sucesso');
             res.redirect('/admin/produtos');
