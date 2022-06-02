@@ -13,6 +13,9 @@ require('./models/Lista');
 const Lista = mongoose.model('listas');
 require('./models/Produto');
 const Produto = mongoose.model('produtos');
+const userRoutes = require('./routes/userRoutes');
+const passport = require('passport');
+require("./config/auth")(passport);
 
 //Configurações
 
@@ -24,6 +27,9 @@ app.use(session({
 }));
 
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 //Mensagens
 app.use(flash());
 
@@ -31,6 +37,8 @@ app.use(flash());
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    res.locals.user = req.user || null;
     next();
 });
 
@@ -44,6 +52,9 @@ app.set('view engine', 'handlebars');
 
 
 //chamando o mongoose
+
+//mongodb://localhost/blogapp local
+//mongodb+srv://dev:dRFGCOn4E3GNZzCT@cluster0.elxpe.mongodb.net/LisToHome produção
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb+srv://dev:dRFGCOn4E3GNZzCT@cluster0.elxpe.mongodb.net/LisToHome').then(() => {
     console.log('Conectado ao MongoDB');
@@ -92,27 +103,9 @@ app.get('/lista/:id', (req, res) => {
    
 
 
-
-
-       
-
-
-
-
-
-
-
-
-
-    
-    
-    
-
-
-
-
-
 app.use('/admin', adminRoutes);
+app.use('/usuarios', userRoutes);
+
 
 
 //Outros

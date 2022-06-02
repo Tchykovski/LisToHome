@@ -7,9 +7,15 @@
 
     <ul>
 
+
+        {{#if user}}
         <li><a href="/">Listas </a></li>
         <li><a href="/sobre">Sobre</a></li>
-        <li><a href="/login" id="login-btn">Entrar</a></li>
+        <li><a href="/usuarios/logout">Sair</a></li>
+        {{else}}
+        <li><a href="/usuarios/login" id="login-btn">Entrar</a></li>
+        <li><a href="/usuarios/registro" id="login-btn">Registrar</a></li>
+        {{/if}}
 
     </ul>
 </header>

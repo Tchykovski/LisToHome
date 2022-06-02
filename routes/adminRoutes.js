@@ -5,16 +5,18 @@ require('../models/Lista');
 const Lista = mongoose.model('listas');
 require('../models/Produto');
 const Produto = mongoose.model('produtos');
+const {isAdmin} = require('../helpers/isAdmin');
 
 
-router.get('/', (req, res) => {
+
+router.get('/', isAdmin, (req, res) => {
     res.render('admin/index');
 });
 
 
 
 //mostra todas as listas 
-router.get('/listas', (req, res) => {
+router.get('/listas',  (req, res) => {
     Lista.find().lean().then((listas) => {
         res.render('admin/listas', { listas: listas });
     }).catch((err) => {
