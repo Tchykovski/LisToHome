@@ -9,14 +9,14 @@ const {isAdmin} = require('../helpers/isAdmin');
 
 
 
-router.get('/', isAdmin, (req, res) => {
+router.get('/',  (req, res) => {
     res.render('admin/index');
 });
 
 
 
 //mostra todas as listas 
-router.get('/listas', isAdmin,  (req, res) => {
+router.get('/listas',   (req, res) => {
     Lista.find().lean().then((listas) => {
         res.render('admin/listas', { listas: listas });
     }).catch((err) => {
@@ -28,7 +28,7 @@ router.get('/listas', isAdmin,  (req, res) => {
 
 
 //mostra formulário de edição
-router.get('/listas/edit/:id', isAdmin, (req, res) => {
+router.get('/listas/edit/:id',  (req, res) => {
 Lista.findOne({ _id: req.params.id }).lean().then((lista) => {
     res.render('admin/editLista', { lista: lista });
 }).catch((err) => {
@@ -59,7 +59,7 @@ router.post('/listas/edit',  (req, res) => {
 
 
 //formulario add lista
-router.get('/listas/add', isAdmin, (req, res) => {
+router.get('/listas/add',  (req, res) => {
     res.render('admin/addlistas');
 });
 
@@ -112,9 +112,9 @@ router.post('/lista/delete', (req, res) => {
 
 
 
-router.get('/produtos', isAdmin, (req, res) => {
+router.get('/produtos',  (req, res) => {
     Produto.find().lean().populate('lista').sort({ date: 'desc' }).then((produtos) => {
-        res.render('admin/produtos', { produtos: produtos });
+        res.render('admin/produtosgeral', { produtos: produtos });
     }).catch((err) => {
         req.flash('error_msg', 'Houve um erro ao listar os produtos');
         res.redirect('/admin');
@@ -123,9 +123,9 @@ router.get('/produtos', isAdmin, (req, res) => {
 });
 
 
-router.get('/produtos/add', isAdmin, (req, res) => {
+router.get('/produtos/add',  (req, res) => {
     Lista.find().lean().then((listas) => {
-        res.render('admin/addprodutos', { listas: listas });
+        res.render('admin/addprodutosgeral', { listas: listas });
     }).catch((err) => {
         req.flash('error_msg', 'Houve um erro ao listar as listas');
         res.redirect('/admin');
@@ -139,7 +139,7 @@ router.get('/produtos/add', isAdmin, (req, res) => {
   }
 
 if (erros.length>0){    
-    res.render('admin/addprodutos', {erros: erros});
+    res.render('admin/addprodutosgeral', {erros: erros});
 }else {
     const novoProduto = {
         nome: req.body.nome,
@@ -151,28 +151,28 @@ if (erros.length>0){
     .save()
     .then(() => {
         req.flash('success_msg', 'Produto criado com sucesso');
-        res.redirect('/admin/produtos');
+        res.redirect('/admin/produtosgeral');
 
     }).catch((err) => {
         req.flash('error_msg', 'Houve um erro ao salvar o produto, tente novamente');
-        res.redirect('/admin/produtos');
+        res.redirect('/admin/produtosgeral');
     });
 }
 
 
  })
 
-    router.get('/produtos/edit/:id', isAdmin, (req, res) => {
+    router.get('/produtos/edit/:id',  (req, res) => {
         Produto.findOne({ _id: req.params.id }).lean().then((produto) => {
             Lista.find().lean().then((listas) => {
-                res.render('admin/editprodutos', { produto: produto, listas: listas });
+                res.render('admin/editprodutosgeral', { produto: produto, listas: listas });
             }).catch((err) => {
                 req.flash('error_msg', 'Essa lista não existe');
                 res.redirect('/admin/listas');
             });
         }).catch((err) => {
             req.flash('error_msg', 'Houve um erro ao listar os produtos');
-            res.redirect('/admin/produtos');
+            res.redirect('/admin/produtosgeral');
         });
     });
 
@@ -198,7 +198,7 @@ if (erros.length>0){
 
 
 
-    router.get('/produtos/delete/:id', isAdmin, (req, res) => {
+    router.get('/produtos/delete/:id',  (req, res) => {
         Produto.deleteOne({ _id: req.params.id }).then(() => {
             req.flash('success_msg', 'Produto deletado com sucesso');
             res.redirect('/admin/produtos');
